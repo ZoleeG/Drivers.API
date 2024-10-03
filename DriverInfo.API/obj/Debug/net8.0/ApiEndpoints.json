@@ -1,0 +1,12 @@
+[
+  {
+    "ContainingType": "DriverInfo.API.Controllers.DriversController",
+    "Method": "GetDrivers",
+    "RelativePath": "api/drivers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "SYW32j+YeqQ0rwpowsoFxA4c1yV6mceQ54Xv4M9DSro=",
+  "Source": "DriverInfo.API",
+  "BasePath": "_content/DriverInfo.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
