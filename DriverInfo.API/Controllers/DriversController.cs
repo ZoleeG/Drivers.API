@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DriverInfo.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace DriverInfo.API.Controllers
@@ -7,17 +8,23 @@ namespace DriverInfo.API.Controllers
     [Route("api/drivers")]
     public class DriversController : ControllerBase
     {
-        [HttpGet()]
-        public JsonResult GetDrivers()
+        [HttpGet]
+        public ActionResult<IEnumerable<DriversDto>> GetDrivers()
         {
-            return new JsonResult(DriversDataStore.Current.Drivers);
+            return Ok(DriversDataStore.Current.Drivers);
         }
 
         [HttpGet("{id}")]
-        public JsonResult GetDriver(int id)
-        { 
-            return new JsonResult(
-                DriversDataStore.Current.Drivers.FirstOrDefault(x => x.Id == id));
+        public ActionResult<DriversDto> GetDriver(int id)
+        {
+            var driverToReturn = DriversDataStore.Current.Drivers.FirstOrDefault(x => x.Id == id);
+
+            if (driverToReturn == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(driverToReturn);
         }
     }
 }
