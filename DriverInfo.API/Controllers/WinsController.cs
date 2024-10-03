@@ -22,7 +22,7 @@ namespace DriverInfo.API.Controllers
             return Ok(driver.Wins);
         }
 
-        [HttpGet("{winId}")]
+        [HttpGet("{winId}", Name = "GetWin")]
         public ActionResult<WinDto> GetWin(int driverId, int winId)
         {
             var driver = DriversDataStore.Current.Drivers.FirstOrDefault(
@@ -42,6 +42,35 @@ namespace DriverInfo.API.Controllers
             }
 
             return Ok(win);
+        }
+
+        [HttpPost]
+        public ActionResult<WinDto> CreateWin(int driverId, [FromBody] WinForCreationDto win)
+        {
+            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(d => d.Id == driverId);
+
+            if (driver == null)
+            {
+                return NotFound();
+            }
+
+            var maxWinId = DriversDataStore.Current.Drivers.SelectMany(d => d.Wins).Max(w => w.Id);
+
+            var finalWin = new WinDto()
+            {
+                Id = ++maxWinId,
+                Name = win.Name,
+                GridPosition = win.GridPosition,
+                Year = win.Year
+            };
+
+            driver.Wins.Add(finalWin);
+            return CreatedAtRoute("GetWin", new
+            {
+                driverId = driverId,
+                winId = finalWin.Id
+            },
+            finalWin);
         }
     }
 }

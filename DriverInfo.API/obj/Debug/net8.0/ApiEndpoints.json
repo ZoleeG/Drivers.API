@@ -51,6 +51,39 @@
   },
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
+    "Method": "CreateWin",
+    "RelativePath": "api/drivers/{driverId}/Wins",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "driverId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "win",
+        "Type": "DriverInfo.API.Models.WinForCreationDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DriverInfo.API.Models.WinDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "GetWin",
     "RelativePath": "api/drivers/{driverId}/Wins/{winId}",
     "HttpMethod": "GET",
@@ -80,7 +113,8 @@
         ],
         "StatusCode": 200
       }
-    ]
+    ],
+    "EndpointName": "GetWin"
   },
   {
     "ContainingType": "DriverInfo.API.Controllers.DriversController",
