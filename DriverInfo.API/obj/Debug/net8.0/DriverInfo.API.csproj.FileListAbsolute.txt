@@ -31,3 +31,4 @@ C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\obj\Debug\net8.0\Driv
 C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\obj\Debug\net8.0\DriverInfo.API.genruntimeconfig.cache
 C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\obj\Debug\net8.0\ref\DriverInfo.API.dll
 C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\obj\Debug\net8.0\DriverInfo.API.sourcelink.json
+C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\bin\Debug\net8.0\f1-calendar-2024-1.pdf
