@@ -112,6 +112,22 @@
   },
   {
     "ContainingType": "DriverInfo.API.Controllers.FilesController",
+    "Method": "CreateFile",
+    "RelativePath": "api/Files",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DriverInfo.API.Controllers.FilesController",
     "Method": "GetFile",
     "RelativePath": "api/Files/{fileId}",
     "HttpMethod": "GET",
