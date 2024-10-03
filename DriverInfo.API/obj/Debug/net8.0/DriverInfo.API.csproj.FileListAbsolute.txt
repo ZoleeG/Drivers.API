@@ -30,3 +30,4 @@ C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\obj\Debug\net8.0\refi
 C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\obj\Debug\net8.0\DriverInfo.API.pdb
 C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\obj\Debug\net8.0\DriverInfo.API.genruntimeconfig.cache
 C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\obj\Debug\net8.0\ref\DriverInfo.API.dll
+C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\obj\Debug\net8.0\DriverInfo.API.sourcelink.json

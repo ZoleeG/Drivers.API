@@ -10,12 +10,14 @@ namespace DriverInfo.API.Controllers
         [HttpGet()]
         public JsonResult GetDrivers()
         {
+            return new JsonResult(DriversDataStore.Current.Drivers);
+        }
+
+        [HttpGet("{id}")]
+        public JsonResult GetDriver(int id)
+        { 
             return new JsonResult(
-                new List<object>
-                {
-                    new{ id = 1, Name = "Max Verstappen"},
-                    new{ id = 2, Name = "Lewis Hamilton"}
-                });
+                DriversDataStore.Current.Drivers.FirstOrDefault(x => x.Id == id));
         }
     }
 }
