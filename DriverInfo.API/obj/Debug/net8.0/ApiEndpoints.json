@@ -84,6 +84,32 @@
   },
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
+    "Method": "UpdateWin",
+    "RelativePath": "api/drivers/{driverId}/Wins/{winid}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "driverId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "winId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "win",
+        "Type": "DriverInfo.API.Models.WinForUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "GetWin",
     "RelativePath": "api/drivers/{driverId}/Wins/{winId}",
     "HttpMethod": "GET",

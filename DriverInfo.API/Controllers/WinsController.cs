@@ -80,5 +80,29 @@ namespace DriverInfo.API.Controllers
             },
             finalWin);
         }
+
+        [HttpPut("{winid}")]
+        public ActionResult UpdateWin(int driverId, int winId, WinForUpdateDto win)
+        {
+            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(d => d.Id == driverId);
+
+            if (driver == null)
+            {
+                return NotFound();
+            }
+
+            var winFromStore = driver.Wins.FirstOrDefault(w => w.Id == winId);
+
+            if (winFromStore == null)
+            {
+                return NotFound();
+            }
+
+            winFromStore.Name = win.Name;
+            winFromStore.GridPosition = win.GridPosition;
+            winFromStore.Year = win.Year;
+
+            return NoContent();
+        }
     }
 }
