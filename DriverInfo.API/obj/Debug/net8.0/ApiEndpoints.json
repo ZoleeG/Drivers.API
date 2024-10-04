@@ -110,6 +110,32 @@
   },
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
+    "Method": "PartiallyUpdateWin",
+    "RelativePath": "api/drivers/{driverId}/Wins/{winid}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "driverId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "winId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "patchDocument",
+        "Type": "Microsoft.AspNetCore.JsonPatch.Operations.Operation[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "GetWin",
     "RelativePath": "api/drivers/{driverId}/Wins/{winId}",
     "HttpMethod": "GET",

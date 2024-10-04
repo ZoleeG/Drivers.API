@@ -7,6 +7,7 @@ namespace DriverInfo.API.Models
         [Required(ErrorMessage = "You should provide a name value")]
         [MaxLength(30)]
         public string Name { get; set; } = string.Empty;
+
         [Range(1, 30, ErrorMessage = "Please enter a valid grid position")]
         public int GridPosition { get; set; }
 

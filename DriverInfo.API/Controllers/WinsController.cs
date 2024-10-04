@@ -1,5 +1,6 @@
 ﻿using DriverInfo.API.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 
@@ -101,6 +102,49 @@ namespace DriverInfo.API.Controllers
             winFromStore.Name = win.Name;
             winFromStore.GridPosition = win.GridPosition;
             winFromStore.Year = win.Year;
+
+            return NoContent();
+        }
+
+        [HttpPatch("{winid}")]
+        public ActionResult PartiallyUpdateWin(int driverId, int winId, JsonPatchDocument<WinForUpdateDto> patchDocument)
+        {
+            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(d => d.Id == driverId);
+
+            if (driver == null)
+            {
+                return NotFound();
+            }
+
+            var winFromStore = driver.Wins.FirstOrDefault(w => w.Id == winId);
+
+            if (winFromStore == null)
+            {
+                return NotFound();
+            }
+
+            var winToPatch = new WinForUpdateDto()
+                {
+                    Name= winFromStore.Name,
+                    GridPosition= winFromStore.GridPosition,
+                    Year= winFromStore.Year
+                };
+
+            patchDocument.ApplyTo(winToPatch, ModelState);
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(!TryValidateModel(winToPatch))
+            {
+                return BadRequest(ModelState);
+            }
+
+            winFromStore.Name = winToPatch.Name;
+            winFromStore.GridPosition = winToPatch.GridPosition;
+            winFromStore.Year = winToPatch.Year;
 
             return NoContent();
         }
