@@ -1,6 +1,7 @@
 ﻿using DriverInfo.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 
 namespace DriverInfo.API.Controllers
 {
@@ -47,6 +48,13 @@ namespace DriverInfo.API.Controllers
         [HttpPost]
         public ActionResult<WinDto> CreateWin(int driverId, [FromBody] WinForCreationDto win)
         {
+            //-----This is already included by the [ApiController]----
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest();
+            //}
+
             var driver = DriversDataStore.Current.Drivers.FirstOrDefault(d => d.Id == driverId);
 
             if (driver == null)
@@ -61,7 +69,7 @@ namespace DriverInfo.API.Controllers
                 Id = ++maxWinId,
                 Name = win.Name,
                 GridPosition = win.GridPosition,
-                Year = win.Year
+                Year = win.Year,
             };
 
             driver.Wins.Add(finalWin);
