@@ -10,6 +10,13 @@ namespace DriverInfo.API.Controllers
     [ApiController]
     public class WinsController : ControllerBase
     {
+        private readonly ILogger<WinsController> _logger;
+
+        public WinsController(ILogger<WinsController> logger)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<WinDto>> GetWins(int driverId)
         {
@@ -18,6 +25,7 @@ namespace DriverInfo.API.Controllers
 
             if (driver == null)
             {
+                _logger.LogInformation($"Driver with id {driverId} wasn't found.");
                 return NotFound();
             }
 
