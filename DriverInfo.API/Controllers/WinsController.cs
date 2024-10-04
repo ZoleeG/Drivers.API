@@ -1,4 +1,5 @@
 ﻿using DriverInfo.API.Models;
+using DriverInfo.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace DriverInfo.API.Controllers
     public class WinsController : ControllerBase
     {
         private readonly ILogger<WinsController> _logger;
+        private readonly LocalMailService _mailService;
 
-        public WinsController(ILogger<WinsController> logger)
+        public WinsController(ILogger<WinsController> logger, LocalMailService mailService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
 
         [HttpGet]
@@ -175,6 +178,8 @@ namespace DriverInfo.API.Controllers
             }
 
             driver.Wins.Remove(winFromStore);
+
+            _mailService.Send("Win deleted.", $"Win {winFromStore.Name} with id {winFromStore.Id} was deleted.");
 
             return NoContent();
         }
