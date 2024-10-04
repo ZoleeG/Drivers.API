@@ -136,6 +136,27 @@
   },
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
+    "Method": "DeleteWin",
+    "RelativePath": "api/drivers/{driverId}/Wins/{winid}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "driverId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "winId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "GetWin",
     "RelativePath": "api/drivers/{driverId}/Wins/{winId}",
     "HttpMethod": "GET",

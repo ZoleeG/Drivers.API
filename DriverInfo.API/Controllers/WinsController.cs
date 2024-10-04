@@ -148,5 +148,27 @@ namespace DriverInfo.API.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{winid}")]
+        public ActionResult DeleteWin(int driverId, int winId)
+        {
+            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(d => d.Id == driverId);
+
+            if (driver == null)
+            {
+                return NotFound();
+            }
+
+            var winFromStore = driver.Wins.FirstOrDefault(w => w.Id == winId);
+
+            if (winFromStore == null)
+            {
+                return NotFound();
+            }
+
+            driver.Wins.Remove(winFromStore);
+
+            return NoContent();
+        }
     }
 }
