@@ -1,6 +1,8 @@
 using DriverInfo.API;
+using DriverInfo.API.DbContexts;
 using DriverInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -46,7 +48,10 @@ builder.Services.AddTransient<IMailService, LocalMailService>();
 builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
 
-builder.Services.AddSingleton<DriversDataStore> ();
+builder.Services.AddSingleton<DriversDataStore>();
+
+builder.Services.AddDbContext<DriverInfoContext>(dbContextOptions =>
+            dbContextOptions.UseSqlite("DataSource=DriverInfo.db"));
 
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
