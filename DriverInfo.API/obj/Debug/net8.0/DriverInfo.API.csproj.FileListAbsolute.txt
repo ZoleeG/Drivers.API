@@ -46,3 +46,4 @@ C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\bin\Debug\net8.0\Seri
 C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\bin\Debug\net8.0\Serilog.Sinks.Console.dll
 C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
 C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\bin\Debug\net8.0\Serilog.Sinks.File.dll
+C:\Users\Zoltan\source\repos\DriverInfo.API\DriverInfo.API\bin\Debug\net8.0\appsettings.production.json

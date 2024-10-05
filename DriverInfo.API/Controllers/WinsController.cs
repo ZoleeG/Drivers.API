@@ -12,10 +12,10 @@ namespace DriverInfo.API.Controllers
     public class WinsController : ControllerBase
     {
         private readonly ILogger<WinsController> _logger;
-        private readonly LocalMailService _mailService;
+        private readonly IMailService _mailService;
         private readonly DriversDataStore _driversDataStore;
 
-        public WinsController(ILogger<WinsController> logger, LocalMailService mailService, DriversDataStore driversDataStore)
+        public WinsController(ILogger<WinsController> logger, IMailService mailService, DriversDataStore driversDataStore)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
