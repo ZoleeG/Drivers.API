@@ -1,3 +1,4 @@
+using DriverInfo.API;
 using DriverInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
@@ -44,6 +45,8 @@ builder.Services.AddTransient<IMailService, LocalMailService>();
 #else
 builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
+
+builder.Services.AddSingleton<DriversDataStore> ();
 
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();

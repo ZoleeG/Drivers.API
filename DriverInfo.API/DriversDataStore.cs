@@ -5,7 +5,7 @@ namespace DriverInfo.API
     public class DriversDataStore
     {
         public List<DriversDto> Drivers { get; set; }
-        public static DriversDataStore Current { get; } = new DriversDataStore();
+        //public static DriversDataStore Current { get; } = new DriversDataStore();
         public DriversDataStore()
         {
             Drivers = new List<DriversDto>()

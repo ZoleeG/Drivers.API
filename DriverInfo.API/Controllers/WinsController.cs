@@ -13,17 +13,19 @@ namespace DriverInfo.API.Controllers
     {
         private readonly ILogger<WinsController> _logger;
         private readonly LocalMailService _mailService;
+        private readonly DriversDataStore _driversDataStore;
 
-        public WinsController(ILogger<WinsController> logger, LocalMailService mailService)
+        public WinsController(ILogger<WinsController> logger, LocalMailService mailService, DriversDataStore driversDataStore)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
+            _driversDataStore = driversDataStore ?? throw new ArgumentNullException(nameof(driversDataStore));
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<WinDto>> GetWins(int driverId)
         {
-            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(
+            var driver = _driversDataStore.Drivers.FirstOrDefault(
                 d => d.Id == driverId);
 
             if (driver == null)
@@ -38,7 +40,7 @@ namespace DriverInfo.API.Controllers
         [HttpGet("{winId}", Name = "GetWin")]
         public ActionResult<WinDto> GetWin(int driverId, int winId)
         {
-            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(
+            var driver = _driversDataStore.Drivers.FirstOrDefault(
                 d => d.Id == driverId);
 
             if (driver == null)
@@ -67,14 +69,14 @@ namespace DriverInfo.API.Controllers
             //    return BadRequest();
             //}
 
-            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(d => d.Id == driverId);
+            var driver = _driversDataStore.Drivers.FirstOrDefault(d => d.Id == driverId);
 
             if (driver == null)
             {
                 return NotFound();
             }
 
-            var maxWinId = DriversDataStore.Current.Drivers.SelectMany(d => d.Wins).Max(w => w.Id);
+            var maxWinId = _driversDataStore.Drivers.SelectMany(d => d.Wins).Max(w => w.Id);
 
             var finalWin = new WinDto()
             {
@@ -96,7 +98,7 @@ namespace DriverInfo.API.Controllers
         [HttpPut("{winid}")]
         public ActionResult UpdateWin(int driverId, int winId, WinForUpdateDto win)
         {
-            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(d => d.Id == driverId);
+            var driver = _driversDataStore.Drivers.FirstOrDefault(d => d.Id == driverId);
 
             if (driver == null)
             {
@@ -120,7 +122,7 @@ namespace DriverInfo.API.Controllers
         [HttpPatch("{winid}")]
         public ActionResult PartiallyUpdateWin(int driverId, int winId, JsonPatchDocument<WinForUpdateDto> patchDocument)
         {
-            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(d => d.Id == driverId);
+            var driver = _driversDataStore.Drivers.FirstOrDefault(d => d.Id == driverId);
 
             if (driver == null)
             {
@@ -163,7 +165,7 @@ namespace DriverInfo.API.Controllers
         [HttpDelete("{winid}")]
         public ActionResult DeleteWin(int driverId, int winId)
         {
-            var driver = DriversDataStore.Current.Drivers.FirstOrDefault(d => d.Id == driverId);
+            var driver = _driversDataStore.Drivers.FirstOrDefault(d => d.Id == driverId);
 
             if (driver == null)
             {

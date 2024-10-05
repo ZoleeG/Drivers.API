@@ -8,16 +8,24 @@ namespace DriverInfo.API.Controllers
     [Route("api/drivers")]
     public class DriversController : ControllerBase
     {
+        private readonly DriversDataStore _driversDataStore;
+
+        public DriversController(DriversDataStore driversDataStore)
+        {
+            _driversDataStore = driversDataStore ?? throw new ArgumentNullException(nameof(driversDataStore));
+        }
+
+
         [HttpGet]
         public ActionResult<IEnumerable<DriversDto>> GetDrivers()
         {
-            return Ok(DriversDataStore.Current.Drivers);
+            return Ok(_driversDataStore.Drivers);
         }
 
         [HttpGet("{id}")]
         public ActionResult<DriversDto> GetDriver(int id)
         {
-            var driverToReturn = DriversDataStore.Current.Drivers.FirstOrDefault(x => x.Id == id);
+            var driverToReturn = _driversDataStore.Drivers.FirstOrDefault(x => x.Id == id);
 
             if (driverToReturn == null)
             {
