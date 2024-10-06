@@ -1,6 +1,6 @@
 ﻿namespace DriverInfo.API.Models
 {
-    public class DriversDto
+    public class DriverDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

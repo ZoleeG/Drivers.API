@@ -1,4 +1,5 @@
 ﻿using DriverInfo.API.Models;
+using DriverInfo.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,22 +9,34 @@ namespace DriverInfo.API.Controllers
     [Route("api/drivers")]
     public class DriversController : ControllerBase
     {
-        private readonly DriversDataStore _driversDataStore;
+        private readonly IDriverInfoRepository _driverInfoRepository;
 
-        public DriversController(DriversDataStore driversDataStore)
+        public DriversController(IDriverInfoRepository driverInfoRepository)
         {
-            _driversDataStore = driversDataStore ?? throw new ArgumentNullException(nameof(driversDataStore));
+            _driverInfoRepository = driverInfoRepository ?? throw new ArgumentNullException(nameof(driverInfoRepository));
         }
 
-
         [HttpGet]
-        public ActionResult<IEnumerable<DriversDto>> GetDrivers()
+        public async Task<ActionResult<IEnumerable<DriverWithoutWinsDto>>> GetDrivers()
         {
-            return Ok(_driversDataStore.Drivers);
+            var driverEntities = await _driverInfoRepository.GetDriversAsync();
+            var results = new List<DriverWithoutWinsDto>();
+            foreach (var driverEntity in driverEntities)
+            {
+                results.Add(new DriverWithoutWinsDto
+                {
+                    Id = driverEntity.Id,
+                    Description = driverEntity.Description,
+                    Name = driverEntity.Name,
+                }
+                );
+            }
+
+            return Ok( results );
         }
 
         [HttpGet("{id}")]
-        public ActionResult<DriversDto> GetDriver(int id)
+        public ActionResult<DriverDto> GetDriver(int id)
         {
             var driverToReturn = _driversDataStore.Drivers.FirstOrDefault(x => x.Id == id);
 

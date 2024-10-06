@@ -4,13 +4,13 @@ namespace DriverInfo.API
 {
     public class DriversDataStore
     {
-        public List<DriversDto> Drivers { get; set; }
+        public List<DriverDto> Drivers { get; set; }
         //public static DriversDataStore Current { get; } = new DriversDataStore();
         public DriversDataStore()
         {
-            Drivers = new List<DriversDto>()
+            Drivers = new List<DriverDto>()
             {
-                new DriversDto()
+                new DriverDto()
                 {
                     Id = 1,
                     Name = "Max Verstappen",
@@ -40,7 +40,7 @@ namespace DriverInfo.API
                         }
                     }
                 },
-                new DriversDto()
+                new DriverDto()
                 {
                     Id= 2,
                     Name = "Lewis Hamilton",
