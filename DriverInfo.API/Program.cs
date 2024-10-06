@@ -53,6 +53,8 @@ builder.Services.AddSingleton<DriversDataStore>();
 builder.Services.AddDbContext<DriverInfoContext>(dbContextOptions =>
             dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:DriverInfoDBConnectionString"]));
 
+builder.Services.AddScoped<IDriverInfoRepository, DriverInfoRepository>();
+
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
 
