@@ -55,8 +55,7 @@ builder.Services.AddDbContext<DriverInfoContext>(dbContextOptions =>
 
 builder.Services.AddScoped<IDriverInfoRepository, DriverInfoRepository>();
 
-//builder.Logging.ClearProviders();
-//builder.Logging.AddConsole();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

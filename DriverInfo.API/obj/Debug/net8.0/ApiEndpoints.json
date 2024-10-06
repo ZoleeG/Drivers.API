@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[DriverInfo.API.Models.DriversDto, DriverInfo.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[DriverInfo.API.Models.DriverWithoutWinsDto, DriverInfo.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -136,27 +136,6 @@
   },
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
-    "Method": "DeleteWin",
-    "RelativePath": "api/drivers/{driverId}/Wins/{winid}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "driverId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "winId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "GetWin",
     "RelativePath": "api/drivers/{driverId}/Wins/{winId}",
     "HttpMethod": "GET",
@@ -190,6 +169,27 @@
     "EndpointName": "GetWin"
   },
   {
+    "ContainingType": "DriverInfo.API.Controllers.WinsController",
+    "Method": "DeleteWin",
+    "RelativePath": "api/drivers/{driverId}/Wins/{winId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "driverId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "winId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DriverInfo.API.Controllers.DriversController",
     "Method": "GetDriver",
     "RelativePath": "api/drivers/{id}",
@@ -201,11 +201,16 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "includeWins",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "DriverInfo.API.Models.DriversDto",
+        "Type": "DriverInfo.API.Models.DriverDto",
         "MediaTypes": [
           "text/plain",
           "application/json",

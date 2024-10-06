@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "x1lEyTR0Jkw=",
+  "dgSpecHash": "B2LaUUS5W88=",
   "success": true,
   "projectFilePath": "C:\\Users\\Zoltan\\source\\repos\\DriverInfo.API\\DriverInfo.API\\DriverInfo.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Zoltan\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Zoltan\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Zoltan\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\8.0.8\\microsoft.aspnetcore.jsonpatch.8.0.8.nupkg.sha512",
     "C:\\Users\\Zoltan\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\8.0.8\\microsoft.aspnetcore.mvc.newtonsoftjson.8.0.8.nupkg.sha512",

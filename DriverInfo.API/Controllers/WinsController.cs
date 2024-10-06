@@ -1,9 +1,12 @@
-﻿using DriverInfo.API.Models;
+﻿using AutoMapper;
+using DriverInfo.API.Entities;
+using DriverInfo.API.Models;
 using DriverInfo.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
+using System.Security.Principal;
 
 namespace DriverInfo.API.Controllers
 {
@@ -13,175 +16,161 @@ namespace DriverInfo.API.Controllers
     {
         private readonly ILogger<WinsController> _logger;
         private readonly IMailService _mailService;
-        private readonly DriversDataStore _driversDataStore;
+        private readonly IDriverInfoRepository _driverInfoRepository;
+        private readonly IMapper _mapper;
 
-        public WinsController(ILogger<WinsController> logger, IMailService mailService, DriversDataStore driversDataStore)
+        public WinsController(ILogger<WinsController> logger, IMailService mailService, IDriverInfoRepository driverInfoRepository, IMapper mapper)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
-            _driversDataStore = driversDataStore ?? throw new ArgumentNullException(nameof(driversDataStore));
+            _driverInfoRepository = driverInfoRepository ?? throw new ArgumentNullException(nameof(driverInfoRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<WinDto>> GetWins(int driverId)
+        public async Task<ActionResult<IEnumerable<WinDto>>> GetWins(int driverId)
         {
-            var driver = _driversDataStore.Drivers.FirstOrDefault(
-                d => d.Id == driverId);
-
-            if (driver == null)
+            if(!await _driverInfoRepository.DriverExistsAsync(driverId))
             {
                 _logger.LogInformation($"Driver with id {driverId} wasn't found.");
+
                 return NotFound();
             }
 
-            return Ok(driver.Wins);
+            var winsForDriver = await _driverInfoRepository
+                .GetWinsForDriverAsync(driverId);
+
+            return Ok(_mapper.Map<IEnumerable<WinDto>>(winsForDriver));
         }
 
         [HttpGet("{winId}", Name = "GetWin")]
-        public ActionResult<WinDto> GetWin(int driverId, int winId)
+        public async Task<ActionResult<WinDto>> GetWin(int driverId, int winId)
         {
-            var driver = _driversDataStore.Drivers.FirstOrDefault(
-                d => d.Id == driverId);
-
-            if (driver == null)
+            if (!await _driverInfoRepository.DriverExistsAsync(driverId))
             {
+                _logger.LogInformation($"Driver with id {driverId} wasn't found.");
+
                 return NotFound();
             }
 
-            var win = driver.Wins.FirstOrDefault(
-                w => w.Id == winId);
+            var win = await _driverInfoRepository.GetWinForDriverAsync(driverId, winId);
 
             if (win == null)
             {
                 return NotFound();
             }
 
-            return Ok(win);
+            return Ok(_mapper.Map<WinDto>(win));
         }
 
         [HttpPost]
-        public ActionResult<WinDto> CreateWin(int driverId, [FromBody] WinForCreationDto win)
+        public async Task<ActionResult<WinDto>> CreateWin(int driverId, [FromBody] WinForCreationDto win)
         {
-            //-----This is already included by the [ApiController]----
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest();
-            //}
-
-            var driver = _driversDataStore.Drivers.FirstOrDefault(d => d.Id == driverId);
-
-            if (driver == null)
+            if (!await _driverInfoRepository.DriverExistsAsync(driverId))
             {
+                _logger.LogInformation($"Driver with id {driverId} wasn't found.");
+
                 return NotFound();
             }
 
-            var maxWinId = _driversDataStore.Drivers.SelectMany(d => d.Wins).Max(w => w.Id);
+            var finalWin = _mapper.Map<Entities.Win>(win);
 
-            var finalWin = new WinDto()
-            {
-                Id = ++maxWinId,
-                Name = win.Name,
-                GridPosition = win.GridPosition,
-                Year = win.Year,
-            };
+            await _driverInfoRepository.AddWinForDriverAsync(driverId, finalWin);
+            await _driverInfoRepository.SaveChangesAsync();
 
-            driver.Wins.Add(finalWin);
-            return CreatedAtRoute("GetWin", new
-            {
-                driverId = driverId,
-                winId = finalWin.Id
-            },
-            finalWin);
+            var createdWinToReturn = _mapper.Map<Models.WinDto>(finalWin);
+
+            return CreatedAtRoute("GetWin",
+                new
+                {
+                    driverId =driverId,
+                    winId = createdWinToReturn.Id
+                },
+                createdWinToReturn);
         }
 
         [HttpPut("{winid}")]
-        public ActionResult UpdateWin(int driverId, int winId, WinForUpdateDto win)
+        public async Task<ActionResult> UpdateWin(int driverId, int winId, WinForUpdateDto win)
         {
-            var driver = _driversDataStore.Drivers.FirstOrDefault(d => d.Id == driverId);
+            if (!await _driverInfoRepository.DriverExistsAsync(driverId))
+            {
+                _logger.LogInformation($"Driver with id {driverId} wasn't found.");
 
-            if (driver == null)
+                return NotFound();
+            }
+
+            var winEntity = await _driverInfoRepository.GetWinForDriverAsync(driverId, winId);
+
+            if (winEntity == null)
             {
                 return NotFound();
             }
 
-            var winFromStore = driver.Wins.FirstOrDefault(w => w.Id == winId);
+            _mapper.Map(win, winEntity);
 
-            if (winFromStore == null)
-            {
-                return NotFound();
-            }
-
-            winFromStore.Name = win.Name;
-            winFromStore.GridPosition = win.GridPosition;
-            winFromStore.Year = win.Year;
+            await _driverInfoRepository.SaveChangesAsync();
 
             return NoContent();
         }
 
         [HttpPatch("{winid}")]
-        public ActionResult PartiallyUpdateWin(int driverId, int winId, JsonPatchDocument<WinForUpdateDto> patchDocument)
+        public async Task<ActionResult> PartiallyUpdateWin(int driverId, int winId, JsonPatchDocument<WinForUpdateDto> patchDocument)
         {
-            var driver = _driversDataStore.Drivers.FirstOrDefault(d => d.Id == driverId);
+            if (!await _driverInfoRepository.DriverExistsAsync(driverId))
+            {
+                _logger.LogInformation($"Driver with id {driverId} wasn't found.");
 
-            if (driver == null)
+                return NotFound();
+            }
+
+            var winEntity = await _driverInfoRepository.GetWinForDriverAsync(driverId, winId);
+
+            if (winEntity == null)
             {
                 return NotFound();
             }
 
-            var winFromStore = driver.Wins.FirstOrDefault(w => w.Id == winId);
-
-            if (winFromStore == null)
-            {
-                return NotFound();
-            }
-
-            var winToPatch = new WinForUpdateDto()
-                {
-                    Name= winFromStore.Name,
-                    GridPosition= winFromStore.GridPosition,
-                    Year= winFromStore.Year
-                };
+            var winToPatch = _mapper.Map<WinForUpdateDto>(winEntity);
 
             patchDocument.ApplyTo(winToPatch, ModelState);
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if(!TryValidateModel(winToPatch))
+            if (!TryValidateModel(winToPatch))
             {
                 return BadRequest(ModelState);
             }
 
-            winFromStore.Name = winToPatch.Name;
-            winFromStore.GridPosition = winToPatch.GridPosition;
-            winFromStore.Year = winToPatch.Year;
+            _mapper.Map(winToPatch, winEntity);
+
+            await _driverInfoRepository.SaveChangesAsync();
 
             return NoContent();
         }
 
-        [HttpDelete("{winid}")]
-        public ActionResult DeleteWin(int driverId, int winId)
+        [HttpDelete("{winId}")]
+        public async Task<ActionResult> DeleteWin(int driverId, int winId)
         {
-            var driver = _driversDataStore.Drivers.FirstOrDefault(d => d.Id == driverId);
+            if (!await _driverInfoRepository.DriverExistsAsync(driverId))
+            {
+                _logger.LogInformation($"Driver with id {driverId} wasn't found.");
 
-            if (driver == null)
+                return NotFound();
+            }
+
+            var winEntity = await _driverInfoRepository.GetWinForDriverAsync(driverId, winId);
+
+            if (winEntity == null)
             {
                 return NotFound();
             }
 
-            var winFromStore = driver.Wins.FirstOrDefault(w => w.Id == winId);
+            _driverInfoRepository.DeleteWin(winEntity);
 
-            if (winFromStore == null)
-            {
-                return NotFound();
-            }
-
-            driver.Wins.Remove(winFromStore);
-
-            _mailService.Send("Win deleted.", $"Win {winFromStore.Name} with id {winFromStore.Id} was deleted.");
+            _mailService.Send("Win deleted.", $"Win {winEntity.Name} with id {winEntity.Id} was deleted.");
 
             return NoContent();
         }

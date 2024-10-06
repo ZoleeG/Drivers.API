@@ -46,5 +46,29 @@ namespace DriverInfo.API.Services
                 .Where(w => w.DriverId == driverId)
                 .ToListAsync();
         }
+
+        public async Task<bool> DriverExistsAsync(int driverId)
+        {
+            return await _context.Drivers.AnyAsync(d => d.Id == driverId);
+        }
+
+        public async Task AddWinForDriverAsync(int driverId, Win win)
+        {
+            var driver = await GetDriverAsync(driverId, false);
+            if (driver != null)
+            {
+                driver.Wins.Add(win);
+            }
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync() >= 0);
+        }
+
+        public void DeleteWin(Win win)
+        {
+            _context.Wins.Remove(win);
+        }
     }
 }
