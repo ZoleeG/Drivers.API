@@ -2,6 +2,8 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace DriverInfo.API.Migrations
 {
     /// <inheritdoc />
@@ -44,6 +46,29 @@ namespace DriverInfo.API.Migrations
                         principalTable: "Drivers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Drivers",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "The guy who always wins.", "Max Verstappen" },
+                    { 2, "Won F1-championship 7 times.", "Lewis Hamilton" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Wins",
+                columns: new[] { "Id", "DriverId", "GridPosition", "Name", "Year" },
+                values: new object[,]
+                {
+                    { 1, 1, 4, "Spanish Grand Prix", 2016 },
+                    { 2, 1, 3, "Malaysian Grand Prix", 2017 },
+                    { 3, 1, 2, "Mexican Grand Prix", 2017 },
+                    { 4, 2, 1, "Canadian Grand Prix", 2007 },
+                    { 5, 2, 1, "United States Grand Prix", 2007 },
+                    { 6, 2, 1, "Hungarian Grand Prix", 2007 },
+                    { 7, 2, 1, "Japanese Grand Prix", 2007 }
                 });
 
             migrationBuilder.CreateIndex(

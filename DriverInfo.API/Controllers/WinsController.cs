@@ -169,6 +169,7 @@ namespace DriverInfo.API.Controllers
             }
 
             _driverInfoRepository.DeleteWin(winEntity);
+            await _driverInfoRepository.SaveChangesAsync();
 
             _mailService.Send("Win deleted.", $"Win {winEntity.Name} with id {winEntity.Id} was deleted.");
 

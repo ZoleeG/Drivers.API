@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriverInfo.API.Migrations
 {
     [DbContext(typeof(DriverInfoContext))]
-    [Migration("20241005113820_SeedingDriverInfoDB")]
-    partial class SeedingDriverInfoDB
+    [Migration("20241006132934_DriverInfoDBInitialMigration")]
+    partial class DriverInfoDBInitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

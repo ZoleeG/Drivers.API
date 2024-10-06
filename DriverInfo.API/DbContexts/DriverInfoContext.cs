@@ -8,12 +8,6 @@ namespace DriverInfo.API.DbContexts
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Win> Wins { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlite(builder.Configuration["ConnectionStrings:DriverInfoDBConnectionString"]);
-        //    base.OnConfiguring(optionsBuilder);
-        //}
-
         public DriverInfoContext(DbContextOptions<DriverInfoContext> options) : base(options)
         {
         }
