@@ -10,7 +10,7 @@ namespace DriverInfo.API.DbContexts
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
-        //    optionsBuilder.UseSqlite("DataSource=DriverInfo.db");
+        //    optionsBuilder.UseSqlite(builder.Configuration["ConnectionStrings:DriverInfoDBConnectionString"]);
         //    base.OnConfiguring(optionsBuilder);
         //}
 

@@ -51,7 +51,7 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 builder.Services.AddSingleton<DriversDataStore>();
 
 builder.Services.AddDbContext<DriverInfoContext>(dbContextOptions =>
-            dbContextOptions.UseSqlite("DataSource=DriverInfo.db"));
+            dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:DriverInfoDBConnectionString"]));
 
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
