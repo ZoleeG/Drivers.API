@@ -20,17 +20,28 @@ namespace DriverInfo.API.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Driver>> GetDriversAsync(string? name)
+        public async Task<IEnumerable<Driver>> GetDriversAsync(string? name, string searchQuery)
         {
-            if(string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name) && string.IsNullOrWhiteSpace(searchQuery))
             {
                 return await GetDriversAsync();
             }
 
-            name = name.Trim();
+            var collection = _context.Drivers as IQueryable<Driver>;
 
-            return await _context.Drivers
-                .Where(d => d.Name == name)
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                name = name.Trim();
+                collection = collection.Where(d => d.Name == name);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                searchQuery = searchQuery.Trim();
+                collection = collection.Where(a => a.Name.Contains(searchQuery) || (a.Description != null && a.Description.Contains(searchQuery)));
+            }
+
+            return await collection
                 .OrderBy(d => d.Name)
                 .ToListAsync();
         }

@@ -20,9 +20,9 @@ namespace DriverInfo.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DriverWithoutWinsDto>>> GetDrivers([FromQuery]string? name)
+        public async Task<ActionResult<IEnumerable<DriverWithoutWinsDto>>> GetDrivers([FromQuery]string? name, string? searchQuery)
         {
-            var driverEntities = await _driverInfoRepository.GetDriversAsync(name);
+            var driverEntities = await _driverInfoRepository.GetDriversAsync(name, searchQuery);
             
             return Ok(_mapper.Map<IEnumerable<DriverWithoutWinsDto>>(driverEntities));
         }
