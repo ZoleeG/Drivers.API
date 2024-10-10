@@ -10,6 +10,8 @@ namespace DriverInfo.API.Controllers
     [Route("api/drivers")]
     public class DriversController : ControllerBase
     {
+        const int maxDriversPageSize = 20;
+
         private readonly IDriverInfoRepository _driverInfoRepository;
         private readonly IMapper _mapper;
 
@@ -20,9 +22,14 @@ namespace DriverInfo.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DriverWithoutWinsDto>>> GetDrivers([FromQuery]string? name, string? searchQuery)
+        public async Task<ActionResult<IEnumerable<DriverWithoutWinsDto>>> GetDrivers([FromQuery]string? name, string? searchQuery, int pageNumber = 1, int pageSize = 10)
         {
-            var driverEntities = await _driverInfoRepository.GetDriversAsync(name, searchQuery);
+            if(pageSize > maxDriversPageSize)
+            {
+                pageSize = maxDriversPageSize;
+            }
+
+            var driverEntities = await _driverInfoRepository.GetDriversAsync(name, searchQuery, pageNumber, pageSize);
             
             return Ok(_mapper.Map<IEnumerable<DriverWithoutWinsDto>>(driverEntities));
         }

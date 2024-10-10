@@ -20,13 +20,8 @@ namespace DriverInfo.API.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Driver>> GetDriversAsync(string? name, string searchQuery)
+        public async Task<IEnumerable<Driver>> GetDriversAsync(string? name, string? searchQuery, int pageNumber, int pageSize)
         {
-            if (string.IsNullOrEmpty(name) && string.IsNullOrWhiteSpace(searchQuery))
-            {
-                return await GetDriversAsync();
-            }
-
             var collection = _context.Drivers as IQueryable<Driver>;
 
             if (!string.IsNullOrWhiteSpace(name))
@@ -43,6 +38,8 @@ namespace DriverInfo.API.Services
 
             return await collection
                 .OrderBy(d => d.Name)
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize)
                 .ToListAsync();
         }
 
