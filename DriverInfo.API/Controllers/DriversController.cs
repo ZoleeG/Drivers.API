@@ -3,6 +3,7 @@ using DriverInfo.API.Models;
 using DriverInfo.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 namespace DriverInfo.API.Controllers
 {
@@ -29,7 +30,10 @@ namespace DriverInfo.API.Controllers
                 pageSize = maxDriversPageSize;
             }
 
-            var driverEntities = await _driverInfoRepository.GetDriversAsync(name, searchQuery, pageNumber, pageSize);
+            var (driverEntities, paginationMetadata) = await _driverInfoRepository.GetDriversAsync(name, searchQuery, pageNumber, pageSize);
+
+            Response.Headers.Append("X-Pagination",
+                JsonSerializer.Serialize(paginationMetadata));
             
             return Ok(_mapper.Map<IEnumerable<DriverWithoutWinsDto>>(driverEntities));
         }

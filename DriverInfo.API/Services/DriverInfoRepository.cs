@@ -20,7 +20,7 @@ namespace DriverInfo.API.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Driver>> GetDriversAsync(string? name, string? searchQuery, int pageNumber, int pageSize)
+        public async Task<(IEnumerable<Driver>, PaginationMetadata)> GetDriversAsync(string? name, string? searchQuery, int pageNumber, int pageSize)
         {
             var collection = _context.Drivers as IQueryable<Driver>;
 
@@ -36,11 +36,17 @@ namespace DriverInfo.API.Services
                 collection = collection.Where(a => a.Name.Contains(searchQuery) || (a.Description != null && a.Description.Contains(searchQuery)));
             }
 
-            return await collection
+            var totalItemCount = await collection.CountAsync();
+
+            var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);
+
+            var collectionToReturn = await collection
                 .OrderBy(d => d.Name)
                 .Skip(pageSize * (pageNumber - 1))
                 .Take(pageSize)
                 .ToListAsync();
+
+            return (collectionToReturn, paginationMetadata);
         }
 
         public async Task<Driver?> GetDriverAsync(int driverId, bool includeWins)

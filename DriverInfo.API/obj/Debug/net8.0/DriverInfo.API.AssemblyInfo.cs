@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DriverInfo.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c537a9f4eb4e92e96c71e6a3ca5b3d4a9e9004b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+198f1e5cef1b5398c9a67e430decdb40c661cc27")]
 [assembly: System.Reflection.AssemblyProductAttribute("DriverInfo.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DriverInfo.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
