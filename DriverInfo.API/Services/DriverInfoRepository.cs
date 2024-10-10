@@ -15,7 +15,24 @@ namespace DriverInfo.API.Services
 
         public async Task<IEnumerable<Driver>> GetDriversAsync()
         {
-            return await _context.Drivers.OrderBy(d=>d.Name).ToListAsync();
+            return await _context.Drivers
+                .OrderBy(d=>d.Name)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Driver>> GetDriversAsync(string? name)
+        {
+            if(string.IsNullOrEmpty(name))
+            {
+                return await GetDriversAsync();
+            }
+
+            name = name.Trim();
+
+            return await _context.Drivers
+                .Where(d => d.Name == name)
+                .OrderBy(d => d.Name)
+                .ToListAsync();
         }
 
         public async Task<Driver?> GetDriverAsync(int driverId, bool includeWins)
