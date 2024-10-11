@@ -27,6 +27,14 @@ namespace DriverInfo.API.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        /// <summary>
+        /// Get a list of all drivers.
+        /// </summary>
+        /// <param name="name">The name of the driver to get</param>
+        /// <param name="searchQuery">Searchterm</param>
+        /// <param name="pageNumber"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DriverWithoutWinsDto>>> GetDrivers([FromQuery]string? name, string? searchQuery, int pageNumber = 1, int pageSize = 10)
         {
@@ -43,6 +51,12 @@ namespace DriverInfo.API.Controllers
             return Ok(_mapper.Map<IEnumerable<DriverWithoutWinsDto>>(driverEntities));
         }
 
+        /// <summary>
+        /// Get a driver by id
+        /// </summary>
+        /// <param name="id">The id of the driver to get</param>
+        /// <param name="includeWins">Whether or not to include the wins of the driver</param>
+        /// <returns>A driver with or without their wins</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<DriverDto>> GetDriver(int id, bool includeWins = false)
         {

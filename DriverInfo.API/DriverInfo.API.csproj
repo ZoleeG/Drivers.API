@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>8001b34f-5c82-4f0d-85ba-cc6233ba9590</UserSecretsId>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>DriverInfo.API.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

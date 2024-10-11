@@ -31,6 +31,11 @@ namespace DriverInfo.API.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        /// <summary>
+        /// Get the wins of a driver
+        /// </summary>
+        /// <param name="driverId">The id of the driver whose wins to get</param>
+        /// <returns>The list of the driver's wins</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WinDto>>> GetWins(int driverId)
         {
@@ -48,6 +53,12 @@ namespace DriverInfo.API.Controllers
             return Ok(_mapper.Map<IEnumerable<WinDto>>(winsForDriver));
         }
 
+        /// <summary>
+        /// Get a win for a driver
+        /// </summary>
+        /// <param name="driverId">The id of the driver</param>
+        /// <param name="winId">The id of the win to get</param>
+        /// <returns>A single win</returns>
         [HttpGet("{winId}", Name = "GetWin")]
         public async Task<ActionResult<WinDto>> GetWin(int driverId, int winId)
         {
@@ -68,6 +79,12 @@ namespace DriverInfo.API.Controllers
             return Ok(_mapper.Map<WinDto>(win));
         }
 
+        /// <summary>
+        /// Adding a win to a driver
+        /// </summary>
+        /// <param name="driverId">The driver's id to add the win to</param>
+        /// <param name="win">The win to add</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<WinDto>> CreateWin(int driverId, [FromBody] WinForCreationDto win)
         {
