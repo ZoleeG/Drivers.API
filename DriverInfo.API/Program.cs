@@ -74,6 +74,16 @@ builder.Services.AddAuthentication("Bearer")
     }
     );
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("OnlyDogPeople", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("favourite_pet", "dogs");
+    });
+}
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -22,14 +22,14 @@ namespace DriverInfo.API.Controllers
             public string UserName { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
-            public bool IsAuthorized { get; set; }
-            public DriverInfoUser(int userId, string userName, string firstName, string lastName, bool isAuthorized)
+            public string FavouritePet { get; set; }
+            public DriverInfoUser(int userId, string userName, string firstName, string lastName, string favouritePet)
             {
                 UserId = userId;
                 UserName = userName;
                 FirstName = firstName;
                 LastName = lastName;
-                IsAuthorized = isAuthorized;
+                FavouritePet = favouritePet;
             }
         }
 
@@ -56,7 +56,7 @@ namespace DriverInfo.API.Controllers
             claimsForToken.Add(new Claim("sub", user.UserId.ToString()));
             claimsForToken.Add(new Claim("given_name", user.FirstName));
             claimsForToken.Add(new Claim("family_name", user.LastName));
-            claimsForToken.Add(new Claim("is_authorized", user.IsAuthorized.ToString()));
+            claimsForToken.Add(new Claim("favourite_pet", user.FavouritePet));
 
             var jwtSecurityToken = new JwtSecurityToken(
                 _configuration["Authentication:Issuer"],
@@ -85,7 +85,7 @@ namespace DriverInfo.API.Controllers
                 userName ?? "",
                 "Zoltan",
                 "Ujlaki",
-                true);
+                "dogs");
         }
     }
 }

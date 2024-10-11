@@ -12,7 +12,7 @@ using System.Security.Principal;
 namespace DriverInfo.API.Controllers
 {
     [Route("api/drivers/{driverId}/[controller]")]
-    [Authorize]
+    [Authorize(Policy ="OnlyDogPeople")]
     [ApiController]
     public class WinsController : ControllerBase
     {
@@ -32,7 +32,14 @@ namespace DriverInfo.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WinDto>>> GetWins(int driverId)
         {
-            if(!await _driverInfoRepository.DriverExistsAsync(driverId))
+            //var favouritePet = User.Claims.FirstOrDefault(d => d.Type == "favourite_pet")?.Value;
+
+            //if(favouritePet != "dogs")
+            //{
+            //    return Forbid();
+            //}
+
+            if (!await _driverInfoRepository.DriverExistsAsync(driverId))
             {
                 _logger.LogInformation($"Driver with id {driverId} wasn't found.");
 
