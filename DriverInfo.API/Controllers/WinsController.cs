@@ -2,6 +2,7 @@
 using DriverInfo.API.Entities;
 using DriverInfo.API.Models;
 using DriverInfo.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using System.Security.Principal;
 namespace DriverInfo.API.Controllers
 {
     [Route("api/drivers/{driverId}/[controller]")]
+    [Authorize]
     [ApiController]
     public class WinsController : ControllerBase
     {

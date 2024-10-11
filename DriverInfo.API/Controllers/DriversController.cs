@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DriverInfo.API.Models;
 using DriverInfo.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
@@ -8,6 +9,7 @@ using System.Text.Json;
 namespace DriverInfo.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/drivers")]
     public class DriversController : ControllerBase
     {

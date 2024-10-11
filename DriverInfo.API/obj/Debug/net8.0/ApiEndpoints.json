@@ -1,5 +1,33 @@
 [
   {
+    "ContainingType": "DriverInfo.API.Controllers.AuthenticationController",
+    "Method": "Authenticate",
+    "RelativePath": "api/Authentication/authenticate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "authenticationRequestBody",
+        "Type": "DriverInfo.API.Controllers.AuthenticationController\u002BAuthenticationRequestBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "DriverInfo.API.Controllers.DriversController",
     "Method": "GetDrivers",
     "RelativePath": "api/drivers",
