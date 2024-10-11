@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using DriverInfo.API.Models;
 using DriverInfo.API.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -9,8 +10,10 @@ using System.Text.Json;
 namespace DriverInfo.API.Controllers
 {
     [ApiController]
-    [Authorize]
-    [Route("api/drivers")]
+    //[Authorize]
+    [ApiVersion(1)]
+    [ApiVersion(2)]
+    [Route("api/v{version:apiVersion}/drivers")]
     public class DriversController : ControllerBase
     {
         const int maxDriversPageSize = 20;

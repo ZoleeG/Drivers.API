@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using DriverInfo.API.Entities;
 using DriverInfo.API.Models;
 using DriverInfo.API.Services;
@@ -11,9 +12,10 @@ using System.Security.Principal;
 
 namespace DriverInfo.API.Controllers
 {
-    [Route("api/drivers/{driverId}/[controller]")]
-    [Authorize(Policy ="OnlyDogPeople")]
+    //[Authorize(Policy ="OnlyDogPeople")]
+    [ApiVersion(2)]
     [ApiController]
+    [Route("api/v{version:apiVersion}/drivers/{driverId}/[controller]")]
     public class WinsController : ControllerBase
     {
         private readonly ILogger<WinsController> _logger;
@@ -32,13 +34,7 @@ namespace DriverInfo.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WinDto>>> GetWins(int driverId)
         {
-            //var favouritePet = User.Claims.FirstOrDefault(d => d.Type == "favourite_pet")?.Value;
-
-            //if(favouritePet != "dogs")
-            //{
-            //    return Forbid();
-            //}
-
+            
             if (!await _driverInfoRepository.DriverExistsAsync(driverId))
             {
                 _logger.LogInformation($"Driver with id {driverId} wasn't found.");

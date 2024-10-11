@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using DriverInfo.API;
 using DriverInfo.API.DbContexts;
 using DriverInfo.API.Services;
@@ -83,6 +84,13 @@ builder.Services.AddAuthorization(options =>
     });
 }
 );
+
+builder.Services.AddApiVersioning(setupAction =>
+{
+    setupAction.ReportApiVersions = true;
+    setupAction.AssumeDefaultVersionWhenUnspecified = true;
+    setupAction.DefaultApiVersion = new ApiVersion(1, 0);
+}).AddMvc();
 
 var app = builder.Build();
 

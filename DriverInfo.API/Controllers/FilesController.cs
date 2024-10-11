@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
 namespace DriverInfo.API.Controllers
 {
-    [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class FilesController : ControllerBase
     {
         private readonly FileExtensionContentTypeProvider _fileExtensionContentTypeProvider;
@@ -19,6 +20,7 @@ namespace DriverInfo.API.Controllers
 
 
         [HttpGet("{fileId}")]
+        [ApiVersion(0.1, Deprecated = true)]
         public ActionResult GetFile(string fileId)
         {
             var pathToFile = "f1-calendar-2024-1.pdf";

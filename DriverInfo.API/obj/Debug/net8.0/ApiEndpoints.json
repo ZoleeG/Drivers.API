@@ -30,7 +30,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.DriversController",
     "Method": "GetDrivers",
-    "RelativePath": "api/drivers",
+    "RelativePath": "api/v{version}/drivers",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -54,6 +54,11 @@
         "Name": "pageSize",
         "Type": "System.Int32",
         "IsRequired": false
+      },
+      {
+        "Name": "version",
+        "Type": "",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -73,7 +78,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "GetWins",
-    "RelativePath": "api/drivers/{driverId}/Wins",
+    "RelativePath": "api/v{version}/drivers/{driverId}/Wins",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -81,6 +86,11 @@
       {
         "Name": "driverId",
         "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "version",
+        "Type": "",
         "IsRequired": true
       }
     ],
@@ -101,7 +111,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "CreateWin",
-    "RelativePath": "api/drivers/{driverId}/Wins",
+    "RelativePath": "api/v{version}/drivers/{driverId}/Wins",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -114,6 +124,11 @@
       {
         "Name": "win",
         "Type": "DriverInfo.API.Models.WinForCreationDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "version",
+        "Type": "",
         "IsRequired": true
       }
     ],
@@ -134,7 +149,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "UpdateWin",
-    "RelativePath": "api/drivers/{driverId}/Wins/{winid}",
+    "RelativePath": "api/v{version}/drivers/{driverId}/Wins/{winid}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -153,6 +168,11 @@
         "Name": "win",
         "Type": "DriverInfo.API.Models.WinForUpdateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "version",
+        "Type": "",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -160,7 +180,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "PartiallyUpdateWin",
-    "RelativePath": "api/drivers/{driverId}/Wins/{winid}",
+    "RelativePath": "api/v{version}/drivers/{driverId}/Wins/{winid}",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -179,6 +199,11 @@
         "Name": "patchDocument",
         "Type": "Microsoft.AspNetCore.JsonPatch.Operations.Operation[]",
         "IsRequired": true
+      },
+      {
+        "Name": "version",
+        "Type": "",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -186,7 +211,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "GetWin",
-    "RelativePath": "api/drivers/{driverId}/Wins/{winId}",
+    "RelativePath": "api/v{version}/drivers/{driverId}/Wins/{winId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -199,6 +224,11 @@
       {
         "Name": "winId",
         "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "version",
+        "Type": "",
         "IsRequired": true
       }
     ],
@@ -220,7 +250,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.WinsController",
     "Method": "DeleteWin",
-    "RelativePath": "api/drivers/{driverId}/Wins/{winId}",
+    "RelativePath": "api/v{version}/drivers/{driverId}/Wins/{winId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -234,6 +264,11 @@
         "Name": "winId",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "version",
+        "Type": "",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -241,7 +276,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.DriversController",
     "Method": "GetDriver",
-    "RelativePath": "api/drivers/{id}",
+    "RelativePath": "api/v{version}/drivers/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -255,6 +290,11 @@
         "Name": "includeWins",
         "Type": "System.Boolean",
         "IsRequired": false
+      },
+      {
+        "Name": "version",
+        "Type": "",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -274,7 +314,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.FilesController",
     "Method": "CreateFile",
-    "RelativePath": "api/Files",
+    "RelativePath": "api/v{version}/Files",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -283,6 +323,11 @@
         "Name": "file",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
+      },
+      {
+        "Name": "version",
+        "Type": "",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -290,7 +335,7 @@
   {
     "ContainingType": "DriverInfo.API.Controllers.FilesController",
     "Method": "GetFile",
-    "RelativePath": "api/Files/{fileId}",
+    "RelativePath": "api/v{version}/Files/{fileId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -298,6 +343,11 @@
       {
         "Name": "fileId",
         "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "version",
+        "Type": "",
         "IsRequired": true
       }
     ],

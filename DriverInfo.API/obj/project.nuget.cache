@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "fxWcWpm6DxM=",
+  "dgSpecHash": "y7XD30flK74=",
   "success": true,
   "projectFilePath": "C:\\Users\\Zoltan\\source\\repos\\DriverInfo.API\\DriverInfo.API\\DriverInfo.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Zoltan\\.nuget\\packages\\asp.versioning.abstractions\\8.1.0\\asp.versioning.abstractions.8.1.0.nupkg.sha512",
+    "C:\\Users\\Zoltan\\.nuget\\packages\\asp.versioning.http\\8.1.0\\asp.versioning.http.8.1.0.nupkg.sha512",
+    "C:\\Users\\Zoltan\\.nuget\\packages\\asp.versioning.mvc\\8.1.0\\asp.versioning.mvc.8.1.0.nupkg.sha512",
     "C:\\Users\\Zoltan\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Zoltan\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Zoltan\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.10\\microsoft.aspnetcore.authentication.jwtbearer.8.0.10.nupkg.sha512",
