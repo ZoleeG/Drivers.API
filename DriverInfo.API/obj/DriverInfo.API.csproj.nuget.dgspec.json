@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Zoltan\\source\\repos\\DriverInfo.API\\DriverInfo.API\\DriverInfo.API.csproj": {}
+    "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Zoltan\\source\\repos\\DriverInfo.API\\DriverInfo.API\\DriverInfo.API.csproj": {
+    "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Zoltan\\source\\repos\\DriverInfo.API\\DriverInfo.API\\DriverInfo.API.csproj",
+        "projectUniqueName": "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj",
         "projectName": "DriverInfo.API",
-        "projectPath": "C:\\Users\\Zoltan\\source\\repos\\DriverInfo.API\\DriverInfo.API\\DriverInfo.API.csproj",
-        "packagesPath": "C:\\Users\\Zoltan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Zoltan\\source\\repos\\DriverInfo.API\\DriverInfo.API\\obj\\",
+        "projectPath": "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj",
+        "packagesPath": "C:\\Users\\andris\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Zoltan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\andris\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -47,6 +47,10 @@
           "targetAlias": "net8.0",
           "dependencies": {
             "Asp.Versioning.Mvc": {
+              "target": "Package",
+              "version": "[8.1.0, )"
+            },
+            "Asp.Versioning.Mvc.ApiExplorer": {
               "target": "Package",
               "version": "[8.1.0, )"
             },
@@ -124,7 +128,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

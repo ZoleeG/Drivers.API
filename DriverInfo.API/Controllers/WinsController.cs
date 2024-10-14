@@ -12,7 +12,7 @@ using System.Security.Principal;
 
 namespace DriverInfo.API.Controllers
 {
-    //[Authorize(Policy ="OnlyDogPeople")]
+    [Authorize(Policy = "OnlyDogPeople")]
     [ApiVersion(2)]
     [ApiController]
     [Route("api/v{version:apiVersion}/drivers/{driverId}/[controller]")]

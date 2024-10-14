@@ -10,7 +10,7 @@ using System.Text.Json;
 namespace DriverInfo.API.Controllers
 {
     [ApiController]
-    //[Authorize]
+    [Authorize]
     [ApiVersion(1)]
     [ApiVersion(2)]
     [Route("api/v{version:apiVersion}/drivers")]
@@ -57,7 +57,11 @@ namespace DriverInfo.API.Controllers
         /// <param name="id">The id of the driver to get</param>
         /// <param name="includeWins">Whether or not to include the wins of the driver</param>
         /// <returns>A driver with or without their wins</returns>
+        ///<response code = "200">Returns the requested driver</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<DriverDto>> GetDriver(int id, bool includeWins = false)
         {
             var driver = await _driverInfoRepository.GetDriverAsync(id, includeWins);

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DriverInfo.API</name>
+    </assembly>
+    <members>
+        <member name="M:DriverInfo.API.Controllers.DriversController.GetDrivers(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Get a list of all drivers.
+            </summary>
+            <param name="name">The name of the driver to get</param>
+            <param name="searchQuery">Searchterm</param>
+            <param name="pageNumber"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DriverInfo.API.Controllers.DriversController.GetDriver(System.Int32,System.Boolean)">
+             <summary>
+             Get a driver by id
+             </summary>
+             <param name="id">The id of the driver to get</param>
+             <param name="includeWins">Whether or not to include the wins of the driver</param>
+             <returns>A driver with or without their wins</returns>
+            <response code = "200">Returns the requested driver</response>
+        </member>
+        <member name="M:DriverInfo.API.Controllers.WinsController.GetWins(System.Int32)">
+            <summary>
+            Get the wins of a driver
+            </summary>
+            <param name="driverId">The id of the driver whose wins to get</param>
+            <returns>The list of the driver's wins</returns>
+        </member>
+        <member name="M:DriverInfo.API.Controllers.WinsController.GetWin(System.Int32,System.Int32)">
+            <summary>
+            Get a win for a driver
+            </summary>
+            <param name="driverId">The id of the driver</param>
+            <param name="winId">The id of the win to get</param>
+            <returns>A single win</returns>
+        </member>
+        <member name="M:DriverInfo.API.Controllers.WinsController.CreateWin(System.Int32,DriverInfo.API.Models.WinForCreationDto)">
+            <summary>
+            Adding a win to a driver
+            </summary>
+            <param name="driverId">The driver's id to add the win to</param>
+            <param name="win">The win to add</param>
+            <returns></returns>
+        </member>
+        <member name="T:DriverInfo.API.Migrations.DriverInfoDBInitialMigration">
+            <inheritdoc />
+        </member>
+        <member name="M:DriverInfo.API.Migrations.DriverInfoDBInitialMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DriverInfo.API.Migrations.DriverInfoDBInitialMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DriverInfo.API.Migrations.DriverInfoDBInitialMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:DriverInfo.API.Models.DriverWithoutWinsDto">
+            <summary>
+            A driver without wins
+            </summary>
+        </member>
+        <member name="P:DriverInfo.API.Models.DriverWithoutWinsDto.Id">
+            <summary>
+            The id of the driver
+            </summary>
+        </member>
+        <member name="P:DriverInfo.API.Models.DriverWithoutWinsDto.Name">
+            <summary>
+            The name of the driver
+            </summary>
+        </member>
+        <member name="P:DriverInfo.API.Models.DriverWithoutWinsDto.Description">
+            <summary>
+            The description of the driver
+            </summary>
+        </member>
+    </members>
+</doc>

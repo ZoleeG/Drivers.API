@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.StaticFiles;
 
 namespace DriverInfo.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class FilesController : ControllerBase
