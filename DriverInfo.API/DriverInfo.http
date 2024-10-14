@@ -1,0 +1,36 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@schema=https
+@hostname=localhost
+@port=7169
+
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/drivers
+
+###
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/drivers
+Accept:application/xml
+
+###
+POST {{schema}}://{{hostname}}:{{port}}/api/v2/drivers/1/wins
+Accept:application/json
+Content-Type:application/json
+
+{
+  "name":"Hungaroring",
+  "gridposition":7,
+  "year":"1992"
+}
+
+###
+POST {{schema}}://{{hostname}}:{{port}}/api/authentication/authenticate
+Content-Type:application/json
+
+{
+  "username":"RandomGuy",
+  "password":"Best password ever"
+}
+
+###
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/drivers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW5fbmFtZSI6IlpvbHRhbiIsImZhbWlseV9uYW1lIjoiVWpsYWtpIiwiZmF2b3VyaXRlX3BldCI6ImRvZ3MiLCJuYmYiOjE3Mjg5MTY4ODcsImV4cCI6MTcyODkyMDQ4NywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE2OSIsImF1ZCI6ImRyaXZlcmluZm9hcGkifQ.FsbZSaoCoSNAcVqbd1xQDwHBI6XokWn40WVIx_W3DRE
+
+###

@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj": {}
+    "C:\\Users\\andris\\Source\\Repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj": {
+    "C:\\Users\\andris\\Source\\Repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj",
+        "projectUniqueName": "C:\\Users\\andris\\Source\\Repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj",
         "projectName": "DriverInfo.API",
-        "projectPath": "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj",
+        "projectPath": "C:\\Users\\andris\\Source\\Repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\DriverInfo.API.csproj",
         "packagesPath": "C:\\Users\\andris\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\andris\\source\\repos\\ZoleeG\\Drivers.API\\DriverInfo.API\\obj\\",
         "projectStyle": "PackageReference",

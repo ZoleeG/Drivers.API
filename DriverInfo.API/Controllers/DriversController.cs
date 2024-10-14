@@ -54,17 +54,17 @@ namespace DriverInfo.API.Controllers
         /// <summary>
         /// Get a driver by id
         /// </summary>
-        /// <param name="id">The id of the driver to get</param>
+        /// <param name="driverId">The id of the driver to get</param>
         /// <param name="includeWins">Whether or not to include the wins of the driver</param>
         /// <returns>A driver with or without their wins</returns>
         ///<response code = "200">Returns the requested driver</response>
-        [HttpGet("{id}")]
+        [HttpGet("{driverId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<DriverDto>> GetDriver(int id, bool includeWins = false)
+        public async Task<ActionResult<DriverDto>> GetDriver(int driverId, bool includeWins = false)
         {
-            var driver = await _driverInfoRepository.GetDriverAsync(id, includeWins);
+            var driver = await _driverInfoRepository.GetDriverAsync(driverId, includeWins);
 
             if (driver == null)
             {

@@ -3,6 +3,7 @@ using Asp.Versioning.ApiExplorer;
 using DriverInfo.API;
 using DriverInfo.API.DbContexts;
 using DriverInfo.API.Services;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -139,6 +140,12 @@ builder.Services.AddAuthorization(options =>
 }
 );
 
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                ForwardedHeaders.XForwardedProto;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -147,6 +154,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler();
 }
+
+app.UseForwardedHeaders();
 
 if (app.Environment.IsDevelopment())
 {

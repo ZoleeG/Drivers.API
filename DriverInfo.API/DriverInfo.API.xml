@@ -18,7 +18,7 @@
              <summary>
              Get a driver by id
              </summary>
-             <param name="id">The id of the driver to get</param>
+             <param name="driverId">The id of the driver to get</param>
              <param name="includeWins">Whether or not to include the wins of the driver</param>
              <returns>A driver with or without their wins</returns>
             <response code = "200">Returns the requested driver</response>
