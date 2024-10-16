@@ -1,8 +1,12 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using DriverInfo.API;
 using DriverInfo.API.DbContexts;
 using DriverInfo.API.Services;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
@@ -14,14 +18,36 @@ using System.Reflection;
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
-    .WriteTo.File("logs/driverinfo.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog();
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-// Add services to the container.
+if(environment == Environments.Development)
+{
+    builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
+            .MinimumLevel.Debug()
+            .WriteTo.Console());
+}
+else
+{
+    var secretClient = new SecretClient(
+        new Uri("https://driverinfoapisecretkeys.vault.azure.net/"),
+        new DefaultAzureCredential());
+    builder.Configuration.AddAzureKeyVault(secretClient,
+        new KeyVaultSecretManager());
+
+    builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
+        .MinimumLevel.Debug()
+        .WriteTo.File("logs/driverinfo.txt", rollingInterval: RollingInterval.Day)
+        .WriteTo.ApplicationInsights(
+        new TelemetryConfiguration()
+        {
+            InstrumentationKey = builder.Configuration["ApplicationInsightsInstrumentationKey"]
+        },
+        TelemetryConverter.Traces));
+}
 
 builder.Services.AddControllers(options =>
 {
@@ -30,16 +56,6 @@ builder.Services.AddControllers(options =>
   .AddXmlDataContractSerializerFormatters();
 
 builder.Services.AddProblemDetails();
-//builder.Services.AddProblemDetails(options =>
-//{
-//    options.CustomizeProblemDetails = ctx =>
-//    {
-//        ctx.ProblemDetails.Extensions.Add("additionalInfo",
-//            "Additional info example");
-//        ctx.ProblemDetails.Extensions.Add("server", 
-//            Environment.MachineName);
-//    };
-//});
 
 builder.Services.AddApiVersioning(setupAction =>
 {
@@ -55,7 +71,6 @@ builder.Services.AddApiVersioning(setupAction =>
 var apiVersionDescriptionProvider = builder.Services.BuildServiceProvider()
     .GetRequiredService<IApiVersionDescriptionProvider>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setupAction =>
 {
@@ -148,8 +163,6 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler();
@@ -157,20 +170,17 @@ if (!app.Environment.IsDevelopment())
 
 app.UseForwardedHeaders();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(setupAction =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(setupAction =>
+    var descriptions = app.DescribeApiVersions();
+    foreach (var description in descriptions)
     {
-        var descriptions = app.DescribeApiVersions();
-        foreach (var description in descriptions)
-        {
-            setupAction.SwaggerEndpoint(
-                $"/swagger/{description.GroupName}/swagger.json",
-                description.GroupName.ToUpperInvariant());
-        }
-    });
-}
+        setupAction.SwaggerEndpoint(
+            $"/swagger/{description.GroupName}/swagger.json",
+            description.GroupName.ToUpperInvariant());
+    }
+});
 
 app.UseHttpsRedirection();
 
